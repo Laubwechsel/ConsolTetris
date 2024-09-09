@@ -7,10 +7,12 @@ Using C# and .Net8.0
 - w to store the piece
 - s to hard drop the piece
 ## Scoring
-- 5 per Line from hard drop
-- 100 per Line cleared
-- 800 per Tetris
-- 1200 per back-to-back Tetris
+- 5 for each Line during a hard drop
+- 100 for 1 Line Cleared
+- 250 for 2 Lines Cleared
+- 400 for 3 Lines Cleared
+- 800 for a Tetris
+- 1200 for a back-to-back Tetris
 ## Rotation
 This game implements the super rotation system<br>
 https://strategywiki.org/wiki/Tetris/Rotation_systems

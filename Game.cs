@@ -25,6 +25,11 @@ namespace ConsoleTetris
         public bool Running = false;
         private AutoResetEvent _gameReset = new AutoResetEvent(false);
 
+        private float _gameSpeed = 1;
+        private float _tickDelay = 1000;
+        private int _totalLinesCleared = 0;
+        private int _level = 1;
+
         Menu? _menu;
         public Game(Display display)
         {
@@ -38,7 +43,7 @@ namespace ConsoleTetris
                 {
                     while (Running)
                     {
-                        Thread.Sleep(750);
+                        Thread.Sleep((int)(_tickDelay/_gameSpeed));
                         Step();
                     }
                     _menu!.DisplayGameOver();
@@ -58,6 +63,9 @@ namespace ConsoleTetris
             SetNextPiece(GetNextPieceID());
             CreateNextPiece();
             Running = true;
+            _gameSpeed = 1;
+            _totalLinesCleared = 0;
+            _level = 1;
             _gameReset.Set();
         }
         public void Start()
@@ -125,7 +133,20 @@ namespace ConsoleTetris
                 }
                 if (clearedLines < 4)
                 {
-                    Score += clearedLines * 100;
+                    switch (clearedLines)
+                    {
+                        case 1:
+                    Score += 100;
+                            break;
+                        case 2:
+                    Score += 250;
+                            break;
+                        case 3:
+                    Score += 400;
+                            break;
+                        default:
+                            break;
+                    }
                     _lastScoreTetris = false;
                 }
                 else
@@ -141,7 +162,24 @@ namespace ConsoleTetris
                     _lastScoreTetris = true;
                 }
                 _display.DrawScore(Score);
+
+                _totalLinesCleared += clearedLines;
+                _display.DrawLinesCleared(_totalLinesCleared);
+                if (_totalLinesCleared >= LevelBarrier(_level))
+                {
+                    _level += 1;
+                    _gameSpeed =GameSpeedForLevel(_level);
+                    _display.DrawLevel(_level);
+                }
             }
+        }
+        private float GameSpeedForLevel(int level)
+        {
+            return MathF.Pow(1.2f, level - 1);
+        }
+        private int LevelBarrier(int level)
+        {
+            return (int) (3f * MathF.Pow(level, 1.9f)) + 5;
         }
         [MemberNotNull(nameof(_currentPiece))]
         private void CreateNextPiece()

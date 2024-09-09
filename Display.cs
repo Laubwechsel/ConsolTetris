@@ -52,12 +52,26 @@ namespace ConsoleTetris
         {
             ClearScoreBoard();
 
-            _scoreBoard[15, 0] = 'S';
-            _scoreBoard[15, 1] = 'c';
-            _scoreBoard[15, 2] = 'o';
-            _scoreBoard[15, 3] = 'r';
-            _scoreBoard[15, 4] = 'e';
-            _scoreBoard[15, 5] = ':';
+            _scoreBoard[18, 0] = 'L';
+            _scoreBoard[18, 1] = 'e';
+            _scoreBoard[18, 2] = 'v';
+            _scoreBoard[18, 3] = 'e';
+            _scoreBoard[18, 4] = 'l';
+            _scoreBoard[18, 5] = ':';
+
+            _scoreBoard[17, 0] = 'L';
+            _scoreBoard[17, 1] = 'i';
+            _scoreBoard[17, 2] = 'n';
+            _scoreBoard[17, 3] = 'e';
+            _scoreBoard[17, 4] = 's';
+            _scoreBoard[17, 5] = ':';
+
+            _scoreBoard[16, 0] = 'S';
+            _scoreBoard[16, 1] = 'c';
+            _scoreBoard[16, 2] = 'o';
+            _scoreBoard[16, 3] = 'r';
+            _scoreBoard[16, 4] = 'e';
+            _scoreBoard[16, 5] = ':';
 
             _scoreBoard[8, 1] = 'N';
             _scoreBoard[8, 2] = 'e';
@@ -71,6 +85,9 @@ namespace ConsoleTetris
             _scoreBoard[8, 10] = 'e';
             _scoreBoard[8, 11] = 'd';
 
+            DrawLevel(1);
+            DrawLinesCleared(0);
+            DrawScore(0);
         }
         public void DrawLeaderboard()
         {
@@ -85,7 +102,7 @@ namespace ConsoleTetris
                         DrawOnScoreBoard(x, s_height - i - 7, numberString[x - 2]);
 
                     }
-                    else if (x - 3 - numberString.Length>=0 && x - 3 - numberString.Length < Globals.LeaderBoard[i].inital.Length)
+                    else if (x - 3 - numberString.Length >= 0 && x - 3 - numberString.Length < Globals.LeaderBoard[i].inital.Length)
                     {
                         DrawOnScoreBoard(x, s_height - i - 7, Globals.LeaderBoard[i].inital[x - 3 - numberString.Length]);
                     }
@@ -166,7 +183,25 @@ namespace ConsoleTetris
             }
             for (int i = 0; i < s_scoreBoardWidth - 6; i++)
             {
-                _scoreBoard[15, i + 6] = scoreString[i];
+                _scoreBoard[16, i + 6] = scoreString[i];
+            }
+        }
+        public void DrawLevel(int level)
+        {
+            string levelString = FormatNumber(level, 3);
+            for (int i = 0; i < s_scoreBoardWidth - 6 && i < levelString.Length; i++)
+            {
+                _scoreBoard[18, i + 6] = levelString[i];
+            }
+
+        }
+        public void DrawLinesCleared(int lines)
+        {
+            string linesString = FormatNumber(lines, 4);
+
+            for (int i = 0; i < s_scoreBoardWidth - 6 && i < linesString.Length; i++)
+            {
+                _scoreBoard[17, i + 6] = linesString[i];
             }
         }
         public string FormatNumber(int number)
@@ -174,6 +209,21 @@ namespace ConsoleTetris
             number = number % 1000000000;
             string scoreString = number.ToString();
             while (scoreString.Length < 9)
+            {
+                scoreString = '0' + scoreString;
+            }
+            return scoreString;
+        }
+        public string FormatNumber(int number, int leangth)
+        {
+            int mult = 1;
+            for (int i = 0; i < leangth; i++)
+            {
+                mult *= 10;
+            }
+            number = number % mult;
+            string scoreString = number.ToString();
+            while (scoreString.Length < leangth)
             {
                 scoreString = '0' + scoreString;
             }
@@ -240,6 +290,7 @@ namespace ConsoleTetris
                 sb.Append('|');
                 sb.Append('-', s_totalWidht - 2);
                 sb.Append('|');
+                sb.AppendLine();
                 for (int i = s_height - 1; i >= 0; i--)
                 {
                     sb.Append('|');
@@ -253,6 +304,7 @@ namespace ConsoleTetris
                         sb.Append(_scoreBoard[i, o]);
                     }
                     sb.Append('|');
+                    sb.AppendLine();
                 }
                 sb.Append('|');
                 //sb.Append('-', s_totalWidht - 2);
@@ -260,6 +312,7 @@ namespace ConsoleTetris
                 sb.Append('-', s_totalWidht - 12);
 
                 sb.Append('|');
+                sb.AppendLine();
 
                 return sb.ToString();
             }

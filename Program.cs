@@ -5,6 +5,7 @@ namespace ConsoleTetris
     {
         static void Main(string[] args)
         {
+            
             Console.Clear();
             Console.CursorVisible = false;
             Console.SetWindowSize(Display.s_totalWidht, Display.s_totalHeight + 2);
@@ -43,7 +44,6 @@ namespace ConsoleTetris
             Console.Write('|');
             Console.Write(Enumerable.Repeat('-', Display.s_totalWidht - 2).ToArray());
             Console.Write('|');
-            Console.WriteLine("Resize Window so that top\nbar is continous and this\ntext is on a new line");
             Console.WriteLine("type 'nc' for no Color\n(better performance)");
             Console.WriteLine();
             Console.WriteLine("a/d or left/right move piece");
