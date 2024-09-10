@@ -84,6 +84,7 @@ namespace ConsoleTetris
 
                 if (!_currentPiece.Move((0, -1)))
                 {
+                    _swapped = false;
                     CreateNextPiece();
                     LineCheck();
 
@@ -233,6 +234,7 @@ namespace ConsoleTetris
                         if (!_swapped)
                         {
                             SwapHoldPiece();
+                            _swapped = true;
                         }
                         break;
                     default:
