@@ -307,7 +307,6 @@ namespace ConsoleTetris
                     sb.AppendLine();
                 }
                 sb.Append('|');
-                //sb.Append('-', s_totalWidht - 2);
                 sb.Append("0123456789");
                 sb.Append('-', s_totalWidht - 12);
 
@@ -322,18 +321,14 @@ namespace ConsoleTetris
             lock (this)
             {
                 StringBuilder sb = new();
-                //Stopwatch sw1 = Stopwatch.StartNew();
                 Console.ForegroundColor = ConsoleColor.Gray;
                 ConsoleColor lastColor = ConsoleColor.Gray;
                 sb.Append('|');
                 sb.Append(Enumerable.Repeat('-', s_totalWidht - 2).ToArray());
                 sb.Append('|');
                 sb.Append(Environment.NewLine);
-                //sw1.Stop();
-                //long[] times = new long[s_height];
                 for (int y = s_height - 1; y >= 0; y--)
                 {
-                    //Stopwatch sw2 = Stopwatch.StartNew();
                     sb.Append('|');
                     for (int x = 0; x < s_playAreaWidth; x++)
                     {
@@ -386,19 +381,14 @@ namespace ConsoleTetris
                     lastColor = ConsoleColor.Gray;
                     sb.Append('|');
                 sb.Append(Environment.NewLine);
-                    //sw2.Stop();
-                    //times[y] = sw2.ElapsedMilliseconds;
                 }
-                //Stopwatch sw3 = Stopwatch.StartNew();
                 sb.Append('|');
-                //sb.Append('-', s_totalWidht - 2);
                 sb.Append("0123456789");
                 sb.Append(Enumerable.Repeat('-', s_totalWidht - 12).ToArray());
 
                 sb.Append('|');
                 sb.Append(Environment.NewLine);
                 Console.Write(sb.ToString());
-                //sw3.Stop();
             }
 
         }

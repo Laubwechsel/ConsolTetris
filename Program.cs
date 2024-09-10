@@ -68,78 +68,29 @@ namespace ConsoleTetris
             display.DrawWithColor();
             game.Start();
             inputThread.Start();
-            //RenderBenchmark(display);
             Thread.Sleep(30);
-            //int frameCounter = 0;
-            //Stopwatch stopwatch = new Stopwatch();
+#if DEBUG
+            int frameCounter = 0;
+            Stopwatch stopwatch = new Stopwatch();
+#endif
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                //stopwatch.Restart();
+#if DEBUG
+                stopwatch.Restart();
+#endif
                 Globals.DrawFunction.Invoke();
-                //stopwatch.Stop();
-                //Console.WriteLine(frameCounter);
-                //Console.Write(stopwatch.ElapsedMilliseconds);
-                //Console.Write("   ");
-                //frameCounter++;
+#if DEBUG
+                stopwatch.Stop();
+                Console.WriteLine(frameCounter);
+                Console.Write(stopwatch.ElapsedMilliseconds);
+                Console.Write("   ");
+                frameCounter++;
+#endif
                 Thread.Sleep(10);
             }
         }
-        /*
-        static void RenderBenchmark(Display display)
-        {
-
-            Console.SetCursorPosition(0, 0);
-            Stopwatch witColor = Stopwatch.StartNew();
-            display.DrawWithColor();
-            witColor.Stop();
-            Console.SetCursorPosition(0, 0);
-            Stopwatch noColor = Stopwatch.StartNew();
-            Console.Write(display.GetBuffer());
-            noColor.Stop();
-
-            double quot = ((double)witColor.ElapsedTicks) / ((double)noColor.ElapsedTicks);
-            Console.SetCursorPosition(0, 0);
-            Stopwatch naive = Stopwatch.StartNew();
-            Render(display);
-            naive.Stop();
-
-            double quot2 = ((double)naive.ElapsedTicks) / ((double)noColor.ElapsedTicks);
-
-            Stopwatch noWrite = Stopwatch.StartNew();
-            string text = display.GetBuffer();
-            noWrite.Stop();
-            double quot3 = ((double)noWrite.ElapsedTicks) / ((double)noColor.ElapsedTicks);
-            Console.Clear();
-            Console.Write(
-                $"No Color:   {noColor.Elapsed}\n" +
-                $"With Color: {witColor.Elapsed}\n" +
-                $"quote:      {quot.ToString("0.###")}\n" +
-                $"Naive:      {naive.Elapsed}\n" +
-                $"quote:      {quot2.ToString("0.###")}\n" +
-                $"No Write:   {noWrite.Elapsed}\n" +
-                $"quote:      {quot3.ToString("0.###")}");
-            Console.ReadLine();
-        }
-        */
-        static void Render(Display display)
-        {
-            string toRender = display.GetBuffer();
-
-            for (int x = 0; x < toRender.Length; x++)
-            {
-                char next = toRender[x];
-                if (!display._charColorMap.TryGetValue(next, out ConsoleColor color))
-                {
-                    color = ConsoleColor.Gray;
-                }
-
-                Console.ForegroundColor = color;
-
-                Console.Write(next);
-            }
-
-        }
+        
     }
 
 }

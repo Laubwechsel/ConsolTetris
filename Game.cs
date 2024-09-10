@@ -192,7 +192,6 @@ namespace ConsoleTetris
                     _currentPiece.Segments[i].X += 4;
                 }
                 int nextPieceInt = GetNextPieceID();
-                //nextPieceInt = 0;
                 SetNextPiece(nextPieceInt);
                 _display.DrawNextPiece(_nextPiece);
             }
