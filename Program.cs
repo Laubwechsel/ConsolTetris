@@ -7,7 +7,7 @@ namespace ConsoleTetris
     {
         static void Main(string[] args)
         {
-            
+
             Console.Clear();
             Console.CursorVisible = false;
             Console.SetWindowSize(Display.s_totalWidht, Display.s_totalHeight + 2);
@@ -17,10 +17,10 @@ namespace ConsoleTetris
             }
             if (File.Exists(Globals.HighscoresPath))
             {
-                using(StreamReader stream = File.OpenText(Globals.HighscoresPath)) 
+                using (StreamReader stream = File.OpenText(Globals.HighscoresPath))
                 {
                     string? line;
-                    while((line = stream.ReadLine()) != null)
+                    while ((line = stream.ReadLine()) != null)
                     {
                         string[] parts = line.Split(' ');
                         if (parts.Length == 2)
@@ -32,14 +32,14 @@ namespace ConsoleTetris
             }
             Display display = new Display();
             Game game = new Game(display);
-            Menu menu = new Menu(display,game);
+            Menu menu = new Menu(display, game);
             game.SetMenu(menu);
             Thread inputThread = new Thread(() =>
             {
                 while (true)
                 {
                     ConsoleKeyInfo input = Console.ReadKey(true);
-                    if(game.Running) game.HandleInput(input);
+                    if (game.Running) game.HandleInput(input);
                     else menu.HandleIndput(input);
                 }
             });
@@ -70,18 +70,18 @@ namespace ConsoleTetris
             inputThread.Start();
             //RenderBenchmark(display);
             Thread.Sleep(30);
-            int frameCounter = 0;
-                Stopwatch stopwatch = new Stopwatch();
+            //int frameCounter = 0;
+            //Stopwatch stopwatch = new Stopwatch();
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                stopwatch.Restart();
-                    Globals.DrawFunction.Invoke();
-                stopwatch.Stop();
-                    //Console.WriteLine(frameCounter);
-                Console.Write(stopwatch.ElapsedMilliseconds);
-                Console.Write("   ");
-                    frameCounter++;
+                //stopwatch.Restart();
+                Globals.DrawFunction.Invoke();
+                //stopwatch.Stop();
+                //Console.WriteLine(frameCounter);
+                //Console.Write(stopwatch.ElapsedMilliseconds);
+                //Console.Write("   ");
+                //frameCounter++;
                 Thread.Sleep(10);
             }
         }
