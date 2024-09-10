@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics;
+
 namespace ConsoleTetris
 {
     internal class Program
@@ -69,11 +71,16 @@ namespace ConsoleTetris
             //RenderBenchmark(display);
             Thread.Sleep(30);
             int frameCounter = 0;
+                Stopwatch stopwatch = new Stopwatch();
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
+                stopwatch.Restart();
                     Globals.DrawFunction.Invoke();
-                    Console.Write(frameCounter);
+                stopwatch.Stop();
+                    //Console.WriteLine(frameCounter);
+                Console.Write(stopwatch.ElapsedMilliseconds);
+                Console.Write("   ");
                     frameCounter++;
                 Thread.Sleep(10);
             }

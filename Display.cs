@@ -321,17 +321,20 @@ namespace ConsoleTetris
         {
             lock (this)
             {
+                StringBuilder sb = new();
                 //Stopwatch sw1 = Stopwatch.StartNew();
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.Write('|');
-                Console.Write(Enumerable.Repeat('-', s_totalWidht - 2).ToArray());
-                Console.Write('|');
+                ConsoleColor lastColor = ConsoleColor.Gray;
+                sb.Append('|');
+                sb.Append(Enumerable.Repeat('-', s_totalWidht - 2).ToArray());
+                sb.Append('|');
+                sb.Append(Environment.NewLine);
                 //sw1.Stop();
                 //long[] times = new long[s_height];
                 for (int y = s_height - 1; y >= 0; y--)
                 {
                     //Stopwatch sw2 = Stopwatch.StartNew();
-                    Console.Write('|');
+                    sb.Append('|');
                     for (int x = 0; x < s_playAreaWidth; x++)
                     {
                         char next = _playArea[y, x];
@@ -339,13 +342,21 @@ namespace ConsoleTetris
                         {
                             color = ConsoleColor.Gray;
                         }
-
-                        Console.ForegroundColor = color;
-
-                        Console.Write(next);
+                        if (lastColor != color)
+                        {
+                            Console.Write(sb.ToString());
+                            lastColor = color;
+                            Console.ForegroundColor = color;
+                            sb.Clear();
+                        }
+                        
+                        sb.Append(next);
                     }
+                    Console.Write(sb.ToString());
+                    sb.Clear();
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write('|');
+                    lastColor = ConsoleColor.Gray;
+                    sb.Append('|');
                     for (int x = 0; x < s_scoreBoardWidth; x++)
                     {
                         char next = _scoreBoard[y, x];
@@ -356,30 +367,38 @@ namespace ConsoleTetris
                                 color = ConsoleColor.Gray;
                             }
 
-                            Console.ForegroundColor = color;
+                            if (lastColor != color)
+                            {
+                                Console.Write(sb.ToString());
+                                Console.ForegroundColor = color;
+                                lastColor = color;
+                                sb.Clear();
+                            }
                         }
-                        else
+                        if(y==7)
                         {
                             Console.ForegroundColor = ConsoleColor.Gray;
-
+                            
                         }
-                        Console.Write(next);
+                        sb.Append(next);
                     }
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write('|');
+                    lastColor = ConsoleColor.Gray;
+                    sb.Append('|');
+                sb.Append(Environment.NewLine);
                     //sw2.Stop();
                     //times[y] = sw2.ElapsedMilliseconds;
                 }
                 //Stopwatch sw3 = Stopwatch.StartNew();
-                Console.Write('|');
-                //Console.Write('-', s_totalWidht - 2);
-                Console.Write("0123456789");
-                Console.Write(Enumerable.Repeat('-', s_totalWidht - 12).ToArray());
+                sb.Append('|');
+                //sb.Append('-', s_totalWidht - 2);
+                sb.Append("0123456789");
+                sb.Append(Enumerable.Repeat('-', s_totalWidht - 12).ToArray());
 
-                Console.Write('|');
+                sb.Append('|');
+                sb.Append(Environment.NewLine);
+                Console.Write(sb.ToString());
                 //sw3.Stop();
-                int end = 0;
-                end++;
             }
 
         }
