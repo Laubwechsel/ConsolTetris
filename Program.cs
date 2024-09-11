@@ -47,6 +47,18 @@ namespace ConsoleTetris
             Console.Write(Enumerable.Repeat('-', Display.s_totalWidht - 2).ToArray());
             Console.Write('|');
             Console.WriteLine("type 'nc' for no Color\n(better performance)");
+            if (OperatingSystem.IsWindows())
+            {
+                Console.WriteLine("use ctr + mouse wheel to change the games size");
+            }
+            if (OperatingSystem.IsLinux())
+            {
+                Console.WriteLine("use ctr + '+' or '-' to change the games size");
+            }
+            if (OperatingSystem.IsIOS())
+            {
+                Console.WriteLine("use cmd + '+' or '-' to change the games size");
+            }
             Console.WriteLine();
             Console.WriteLine("a/d or left/right move piece");
             Console.WriteLine("q/e rotate piece");
