@@ -10,10 +10,10 @@ namespace ConsoleTetris
 
             Console.Clear();
             Console.CursorVisible = false;
-            Console.SetWindowSize(Display.s_totalWidht, Display.s_totalHeight + 2);
+            Console.SetWindowSize(42, Display.s_totalHeight + 2);
             if (OperatingSystem.IsWindows())
             {
-                Console.SetBufferSize(Display.s_totalWidht, Display.s_totalHeight + 2);
+                Console.SetBufferSize(42, Display.s_totalHeight + 2);
             }
             if (File.Exists(Globals.HighscoresPath))
             {
@@ -43,9 +43,7 @@ namespace ConsoleTetris
                     else menu.HandleIndput(input);
                 }
             });
-            Console.Write('|');
-            Console.Write(Enumerable.Repeat('-', Display.s_totalWidht - 2).ToArray());
-            Console.Write('|');
+            Tetris();
             Console.WriteLine("type 'nc' for no Color\n(better performance)");
             if (OperatingSystem.IsWindows())
             {
@@ -77,6 +75,11 @@ namespace ConsoleTetris
                 Globals.DrawFunction = display.DrawWithColor;
             }
             Console.Clear();
+            Console.SetWindowSize(Display.s_totalWidht + 1, Display.s_totalHeight + 2);
+            if (OperatingSystem.IsWindows())
+            {
+                Console.SetBufferSize(Display.s_totalWidht + 1, Display.s_totalHeight + 2);
+            }
             display.DrawWithColor();
             game.Start();
             inputThread.Start();
@@ -102,7 +105,44 @@ namespace ConsoleTetris
                 Thread.Sleep(10);
             }
         }
-        
+        static void Tetris()
+        {
+            string text = "TTTTTT  EEEEE  TTTTTT  RRRRR   II   SSSS  \n" +
+                          "TTTTTT  EE     TTTTTT  RR   R  II  SS   S \n" +
+                          "  TT    EE       TT    RR   R  II   SS    \n" +
+                          "  TT    EEEEE    TT    RRRRR   II    SSS  \n" +
+                          "  TT    EE       TT    RRRR    II      SS \n" +
+                          "  TT    EE       TT    RR RR   II   S   SS\n" +
+                          "  TT    EEEEE    TT    RR  RR  II    SSSS \n";
+            for (int i = 0; i < text.Length; i++)
+            {
+                char cur = text[i];
+                switch (cur)
+                {
+                    case 'T':
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        break;
+                    case 'E':
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        break;
+                    case 'R':
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        break;
+                    case 'I':
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        break;
+                    case 'S':
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        break;
+                }
+                Console.Write(cur);
+            }
+
+        }
+
     }
 
 }

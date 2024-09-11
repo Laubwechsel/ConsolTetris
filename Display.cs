@@ -31,7 +31,7 @@ namespace ConsoleTetris
             { '|', ConsoleColor.DarkGray },
             { '-', ConsoleColor.DarkGray },
             { '.', ConsoleColor.Gray },
-            { ' ', ConsoleColor.Black },
+            { ' ', ConsoleColor.Gray },
         };
         public Display()
         {
