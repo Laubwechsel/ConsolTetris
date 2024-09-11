@@ -13,6 +13,3 @@ Using C# and .Net8.0
 - 400 for 3 Lines Cleared
 - 800 for a Tetris
 - 1200 for a back-to-back Tetris
-## Rotation
-This game implements the super rotation system<br>
-https://strategywiki.org/wiki/Tetris/Rotation_systems
